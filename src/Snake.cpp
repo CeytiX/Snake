@@ -78,7 +78,7 @@ void Snake::newGame()
 			map[i][j] = 0;
 		}
 	}
-	
+    
 	/** snake **/
 	
 	while(!xPos.empty())
@@ -90,11 +90,11 @@ void Snake::newGame()
 	{
 		yPos.pop_back();
 	}
-	
-	xPos.push_front(25);
-    yPos.push_front(25);
     
     snakeSize = 1;
+    
+    placeWalls();
+    placeFood();
     
     map[xPos[0]][yPos[0]] = 2; //there is a snake in [25][25]
     
@@ -104,16 +104,16 @@ void Snake::newGame()
     
     previousTime = 0;
     currentTime = 0;
-    
-    /** bools **/
-    
-    goLeft = false;
-	goRight = true;
-	goUp = false;
-	goDown = false;
 	
 	leave = false;
 	lose = false;
+    
+    /** bools **/
+    
+    goRight = true;
+    goLeft = false;
+    goUp = false;
+    goDown = false;
     
     /** record **/
     
@@ -129,9 +129,6 @@ void Snake::play(int value)
 	level = value;
 	
 	newGame();
-    
-    placeWalls();
-    placeFood();
     
     while(!leave && !lose)
     {	
@@ -454,19 +451,147 @@ void Snake::placeWalls()
     
     switch(level)
     {
+    	case 0:
+			xPos.push_front(25);
+    		yPos.push_front(25);
+			break;
+			
     	case 1:
+    		for(int i=10; i<40; i++)
+    		{
+    			map[16][i] = 1;
+    			map[33][i] = 1;
+    		}
+    		
+			xPos.push_front(25);
+    		yPos.push_front(25);
     		break;
     		
     	case 2:
+    		for(int i=1; i<=10; i++)
+    		{
+    			map[7][i] = 1;
+    			map[14][i] = 1;
+    			map[21][i] = 1;
+    			map[28][i] = 1;
+    			map[35][i] = 1;
+    			map[42][i] = 1;
+    			map[7][i+38] = 1;
+    			map[14][i+38] = 1;
+    			map[21][i+38] = 1;
+    			map[28][i+38] = 1;
+    			map[35][i+38] = 1;
+    			map[42][i+38] = 1;
+    		}
+    		
+    		xPos.push_front(25);
+    		yPos.push_front(25);
     		break;
     		
     	case 3:
+    		for(int i=1; i<=10; i++)
+    		{
+    			map[i][11] = 1;
+    			map[i+38][39] = 1;
+    			map[39][i] = 1;
+    			map[11][i+38] = 1;
+    		}
+    		for(int i=1; i<=8; i++)
+    		{
+    			map[14][i] = 1;
+    			map[36][i+40] = 1;
+    			map[i][36] = 1;
+    			map[i+40][14] = 1;
+    		}
+    		
+    		map[24][22] = 1;
+    		map[25][22] = 1;
+    		map[26][22] = 1;
+    		
+    		map[27][24] = 1;
+    		map[27][25] = 1;
+    		map[27][26] = 1;
+    		
+    		map[25][27] = 1;
+    		map[24][27] = 1;
+    		map[23][27] = 1;
+    		
+    		map[22][25] = 1;
+    		map[22][24] = 1;
+    		map[22][23] = 1;
+    		
+    		xPos.push_front(25);
+    		yPos.push_front(20);
     		break;
     		
     	case 4:
+    		for(int i=1; i<49; i++)
+    		{
+    			map[i][30] = 1;
+    		}
+    		map[26][30] = 0;
+    		map[28][30] = 0;
+    		
+    		for(int i=14; i<=20; i++)
+    		{
+    			map[i][10] = 1;
+    			map[i][23] = 1;
+    		}
+    		
+    		for(int i=14; i<=19; i++)
+    		{
+    			map[10][i] = 1;
+    		}
+    		
+    		map[11][14] = 1;
+    		map[11][13] = 1;
+    		map[12][13] = 1;
+    		map[12][12] = 1;
+    		map[13][12] = 1;
+    		map[13][11] = 1;
+    		map[14][11] = 1;
+    		
+    		map[11][19] = 1;
+    		map[11][20] = 1;
+    		map[12][20] = 1;
+    		map[12][21] = 1;
+    		map[13][21] = 1;
+    		map[13][22] = 1;
+    		map[14][22] = 1;
+    		
+    		map[20][11] = 1;
+    		map[21][11] = 1;
+    		map[21][12] = 1;
+    		map[22][12] = 1;
+    		map[22][13] = 1;
+    		map[23][13] = 1;
+    		map[23][14] = 1;
+    		map[24][14] = 1;
+    		map[24][15] = 1;
+    		
+    		map[20][22] = 1;
+    		map[21][22] = 1;
+    		map[21][21] = 1;
+    		map[22][21] = 1;
+    		map[22][20] = 1;
+    		map[23][20] = 1;
+    		map[23][19] = 1;
+    		map[24][19] = 1;
+    		map[24][18] = 1;
+    		
+    		xPos.push_front(25);
+    		yPos.push_front(25);
     		break;
     		
     	case 5:
+    		for(int i=0; i<25; i++)
+    		{
+    			map[23][2*i] = 1;
+    			map[26][2*i+1] = 1;
+    		}
+    		
+    		xPos.push_front(1);
+    		yPos.push_front(1);
     		break;
     		
     	case 6:
