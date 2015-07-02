@@ -52,4 +52,8 @@ class Snake
 		SDL_Rect wallPos, bodyPos, foodPos, scorePos, score2Pos;
 		
 		SDL_Event event;
+		
+		/** TTF **/
+		
+		TTF_Font *times;
 };

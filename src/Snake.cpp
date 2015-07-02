@@ -3,6 +3,7 @@
 #include <deque>
 #include <string>
 #include <fstream>
+#include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -46,6 +47,7 @@ Snake::Snake()
     /** TTF **/
     
     TTF_Init();
+    times = TTF_OpenFont("files/times.ttf",50);
 }
 
 /*************
@@ -140,12 +142,13 @@ void Snake::play(int value)
 		
 		if(currentTime >= previousTime + delay)
     	{
+
 			move();
-		
+			
 			hits();
 		
 			changeDelay();
-			
+						
 			previousTime = currentTime;
 		}
 		else 
@@ -336,6 +339,7 @@ void Snake::print()
 		        wallPos.x = i*15;
 		        wallPos.y = j*15;
 		        SDL_BlitSurface(wall, 0, screen, &wallPos);
+		        
 		    }
 
 		    else if(map[i][j] == 2) /** it's a snake **/
@@ -359,7 +363,9 @@ void Snake::print()
 	SDL_BlitSurface(score, 0, screen, &scorePos);
 	SDL_BlitSurface(score2, 0, screen, &score2Pos);
 	
+	
 	SDL_Flip(screen);
+	
 }
 
 /********************
@@ -397,17 +403,14 @@ void Snake::saveRecord()
 **********************/
 
 void Snake::refreshScore()
-{
-	TTF_Font *times = NULL;
-	times = TTF_OpenFont("files/times.ttf",50);
-
+{	
 	SDL_Color black = {0,0,0};
 	SDL_Color white = {255,255,255};
-
+	
 	string scorePrint = "Score: " + to_string(snakeSize);
 	
 	string score2Print = "Best: " + to_string(record[level]);
-
+	
 	score = TTF_RenderText_Shaded(times, scorePrint.c_str(), black, white);
 	score2 = TTF_RenderText_Shaded(times, score2Print.c_str(), black, white);
 }
