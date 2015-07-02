@@ -3,7 +3,7 @@
 int main()
 {
 	Snake game;
-	game.play(1);
+	game.play(0);
 	
 	return 0;
 }

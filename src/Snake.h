@@ -22,7 +22,7 @@ class Snake
 		
 		void changeDelay();
 		
-		void placeWalls(int);
+		void placeWalls();
 		void placeFood();
 		
 	private:
@@ -33,7 +33,8 @@ class Snake
 		int map[50][50];
 		
 		int snakeSize;
-		int record;
+		int record[10];
+		int level;
 		
 		int delay;
 		

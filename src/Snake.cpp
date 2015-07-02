@@ -124,11 +124,13 @@ void Snake::newGame()
 * void play() *
 **************/
 
-void Snake::play(int level)
+void Snake::play(int value)
 {   
+	level = value;
+	
 	newGame();
     
-    placeWalls(level);
+    placeWalls();
     placeFood();
     
     while(!leave && !lose)
@@ -296,9 +298,9 @@ void Snake::hits()
     else if(map[xPos.front()][yPos.front()] == 3) /** the snake eats food **/
     {
         snakeSize++;
-        if(snakeSize > record)
+        if(snakeSize > record[level])
 		{
-			record = snakeSize;
+			record[level] = snakeSize;
 		}
 		
         for(int i=0; i<snakeSize; i++)
@@ -372,9 +374,12 @@ void Snake::loadRecord()
 	string best;
 
 	ifstream best_file("files/best.save");
-	getline(best_file,best);
+	for(int i=0; i<10; i++)
+	{
+		getline(best_file,best);
 
-	record = stoi(best);
+		record[i] = stoi(best);
+	}
 }
 
 /********************
@@ -384,7 +389,10 @@ void Snake::loadRecord()
 void Snake::saveRecord()
 {
 	ofstream bestSave("files/best.save");
-	bestSave << record;
+	for(int i=0; i<10; i++)
+	{
+		bestSave << record[i] << endl;
+	}
 }
 
 /**********************
@@ -401,7 +409,7 @@ void Snake::refreshScore()
 
 	string scorePrint = "Score: " + to_string(snakeSize);
 	
-	string score2Print = "Best: " + to_string(record);
+	string score2Print = "Best: " + to_string(record[level]);
 
 	score = TTF_RenderText_Shaded(times, scorePrint.c_str(), black, white);
 	score2 = TTF_RenderText_Shaded(times, score2Print.c_str(), black, white);
@@ -428,7 +436,7 @@ void Snake::changeDelay()
 * void placeWalls(int) *
 ***********************/
 
-void Snake::placeWalls(int level)
+void Snake::placeWalls()
 {
 	/** walls around the map **/
 	
@@ -444,7 +452,38 @@ void Snake::placeWalls(int level)
         map[49][i]= 1;
     }
     
-    /** ... **/
+    switch(level)
+    {
+    	case 1:
+    		break;
+    		
+    	case 2:
+    		break;
+    		
+    	case 3:
+    		break;
+    		
+    	case 4:
+    		break;
+    		
+    	case 5:
+    		break;
+    		
+    	case 6:
+    		break;
+    		
+    	case 7:
+    		break;
+    		
+    	case 8:
+    		break;
+    	
+    	case 9:
+    		break;
+    		
+    	default:
+    		break;
+    }
 }
 
 /*******************
