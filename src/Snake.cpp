@@ -438,179 +438,91 @@ void Snake::changeDelay()
 
 void Snake::placeWalls()
 {
-	/** walls around the map **/
-	
-	for(int i=0; i<50; i++)
-    {
-        map[i][0] = 1;
-        map[i][49] = 1;
-    }
-
-    for(int i=0; i<50; i++)
-    {
-        map[0][i]= 1;
-        map[49][i]= 1;
-    }
-    
+	ifstream level_file; 
     switch(level)
     {
     	case 0:
+    		level_file.open("files/levels/0");
+    		
 			xPos.push_front(25);
     		yPos.push_front(25);
 			break;
 			
     	case 1:
-    		for(int i=10; i<40; i++)
-    		{
-    			map[16][i] = 1;
-    			map[33][i] = 1;
-    		}
+    		level_file.open("files/levels/1");
     		
 			xPos.push_front(25);
     		yPos.push_front(25);
     		break;
     		
     	case 2:
-    		for(int i=1; i<=10; i++)
-    		{
-    			map[7][i] = 1;
-    			map[14][i] = 1;
-    			map[21][i] = 1;
-    			map[28][i] = 1;
-    			map[35][i] = 1;
-    			map[42][i] = 1;
-    			map[7][i+38] = 1;
-    			map[14][i+38] = 1;
-    			map[21][i+38] = 1;
-    			map[28][i+38] = 1;
-    			map[35][i+38] = 1;
-    			map[42][i+38] = 1;
-    		}
+    		level_file.open("files/levels/2");
     		
     		xPos.push_front(25);
     		yPos.push_front(25);
     		break;
     		
     	case 3:
-    		for(int i=1; i<=10; i++)
-    		{
-    			map[i][11] = 1;
-    			map[i+38][39] = 1;
-    			map[39][i] = 1;
-    			map[11][i+38] = 1;
-    		}
-    		for(int i=1; i<=8; i++)
-    		{
-    			map[14][i] = 1;
-    			map[36][i+40] = 1;
-    			map[i][36] = 1;
-    			map[i+40][14] = 1;
-    		}
+    		level_file.open("files/levels/3");
     		
-    		map[24][22] = 1;
-    		map[25][22] = 1;
-    		map[26][22] = 1;
-    		
-    		map[27][24] = 1;
-    		map[27][25] = 1;
-    		map[27][26] = 1;
-    		
-    		map[25][27] = 1;
-    		map[24][27] = 1;
-    		map[23][27] = 1;
-    		
-    		map[22][25] = 1;
-    		map[22][24] = 1;
-    		map[22][23] = 1;
-    		
-    		xPos.push_front(25);
-    		yPos.push_front(20);
+    		xPos.push_front(10);
+    		yPos.push_front(25);
     		break;
     		
     	case 4:
-    		for(int i=1; i<49; i++)
-    		{
-    			map[i][30] = 1;
-    		}
-    		map[26][30] = 0;
-    		map[28][30] = 0;
-    		
-    		for(int i=14; i<=20; i++)
-    		{
-    			map[i][10] = 1;
-    			map[i][23] = 1;
-    		}
-    		
-    		for(int i=14; i<=19; i++)
-    		{
-    			map[10][i] = 1;
-    		}
-    		
-    		map[11][14] = 1;
-    		map[11][13] = 1;
-    		map[12][13] = 1;
-    		map[12][12] = 1;
-    		map[13][12] = 1;
-    		map[13][11] = 1;
-    		map[14][11] = 1;
-    		
-    		map[11][19] = 1;
-    		map[11][20] = 1;
-    		map[12][20] = 1;
-    		map[12][21] = 1;
-    		map[13][21] = 1;
-    		map[13][22] = 1;
-    		map[14][22] = 1;
-    		
-    		map[20][11] = 1;
-    		map[21][11] = 1;
-    		map[21][12] = 1;
-    		map[22][12] = 1;
-    		map[22][13] = 1;
-    		map[23][13] = 1;
-    		map[23][14] = 1;
-    		map[24][14] = 1;
-    		map[24][15] = 1;
-    		
-    		map[20][22] = 1;
-    		map[21][22] = 1;
-    		map[21][21] = 1;
-    		map[22][21] = 1;
-    		map[22][20] = 1;
-    		map[23][20] = 1;
-    		map[23][19] = 1;
-    		map[24][19] = 1;
-    		map[24][18] = 1;
+    		level_file.open("files/levels/4");
     		
     		xPos.push_front(25);
     		yPos.push_front(25);
     		break;
     		
     	case 5:
-    		for(int i=0; i<25; i++)
-    		{
-    			map[23][2*i] = 1;
-    			map[26][2*i+1] = 1;
-    		}
+    		level_file.open("files/levels/5");
+    		
+    		xPos.push_front(25);
+    		yPos.push_front(10);
+    		break;
+    		
+    	case 6:
+    		level_file.open("files/levels/6");
+    		
+    		xPos.push_front(10);
+    		yPos.push_front(25);
+    		break;
+    		
+    	case 7:
+    		level_file.open("files/levels/7");
+    		
+    		xPos.push_front(25);
+    		yPos.push_front(25);
+    		break;
+    		
+    	case 8:
+    		level_file.open("files/levels/8");
+    		
+    		xPos.push_front(30);
+    		yPos.push_front(30);
+    		break;
+    	
+    	case 9:
+    		level_file.open("files/levels/9");
     		
     		xPos.push_front(1);
     		yPos.push_front(1);
     		break;
     		
-    	case 6:
-    		break;
-    		
-    	case 7:
-    		break;
-    		
-    	case 8:
-    		break;
-    	
-    	case 9:
-    		break;
-    		
     	default:
     		break;
+    }
+    
+    for(int i=0; i<50; i++)
+    {
+    	for(int j=0; j<50; j++)
+    	{
+    		map[j][i] = level_file.get() - '0'; // convert '0' to 0; '1' to 1; etc
+    	}
+    	
+    	level_file.get();
     }
 }
 
