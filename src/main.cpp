@@ -1,10 +1,12 @@
+#include "Index.cpp"
 #include "Snake.cpp"
 
 int main()
 {
-	Snake game;
+	Index index;
 	
-	game.play(9);
+	index.printIndex();
 
 	return 0;
 }
+

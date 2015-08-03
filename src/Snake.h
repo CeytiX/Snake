@@ -57,3 +57,4 @@ class Snake
 		
 		TTF_Font *times;
 };
+

@@ -1,12 +1,13 @@
-#include <ctime>
-#include <cstdlib>
+#ifndef SNAKE_CPP
+#define SNAKE_CPP
+
 #include <deque>
 #include <string>
 #include <fstream>
-#include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+
 #include "Snake.h"
 
 using namespace std;
@@ -16,16 +17,7 @@ using namespace std;
 **************/
 
 Snake::Snake()
-{
-	/** random **/
-	
-	srand(time(0));
-    
-    /** SDL **/
-    
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_WM_SetCaption("Snake by Ceytix",NULL);
-    
+{    
     screen = SDL_SetVideoMode(750, 810, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
     wall = SDL_CreateRGBSurface(SDL_HWSURFACE,15,15,32,0,0,0,0); //a black square (10*10)
     body = IMG_Load("files/pictures/body.png");
@@ -36,13 +28,6 @@ Snake::Snake()
     
     score2Pos.x = 380;
     score2Pos.y = 760;
-    
-    /** SDL Events **/
-    
-    SDL_EventState(SDL_MOUSEMOTION, SDL_IGNORE);
-    SDL_EventState(SDL_MOUSEBUTTONUP, SDL_IGNORE);
-    SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_IGNORE);
-    SDL_EventState(SDL_KEYUP, SDL_IGNORE);
     
     /** TTF **/
     
@@ -62,7 +47,6 @@ Snake::~Snake()
 	SDL_FreeSurface(food);
 	
 	TTF_Quit();
-	SDL_Quit();
 }
 
 /*****************
@@ -175,81 +159,81 @@ void Snake::eventManagement()
             break;
 
         case SDL_KEYDOWN:
-        switch(event.key.keysym.sym)
-        {
-            case SDLK_ESCAPE:
-            leave = true;
-            break;
+		    switch(event.key.keysym.sym)
+		    {
+		        case SDLK_ESCAPE:
+				    leave = true;
+				    break;
 
-            case SDLK_UP:
-            if(!goDown && snakeSize >= 2)
-            {
-                goUp = true;
-                goDown = false;
-                goLeft = false;
-                goRight = false;
-            }
-            else if(snakeSize == 1)
-            {
-                goUp = true;
-                goDown = false;
-                goLeft = false;
-                goRight = false;
-            }
-            break;
+		        case SDLK_UP:
+				    if(!goDown && snakeSize >= 2)
+				    {
+				        goUp = true;
+				        goDown = false;
+				        goLeft = false;
+				        goRight = false;
+				    }
+				    else if(snakeSize == 1)
+				    {
+				        goUp = true;
+				        goDown = false;
+				        goLeft = false;
+				        goRight = false;
+				    }
+				    break;
 
-            case SDLK_DOWN:
-            if(!goUp && snakeSize >= 2)
-            {
-                goDown = true;
-                goUp = false;
-                goLeft = false;
-                goRight = false;
-            }
-            else if(snakeSize == 1)
-            {
-                goDown = true;
-                goUp = false;
-                goLeft = false;
-                goRight = false;
-            }
-            break;
+		        case SDLK_DOWN:
+				    if(!goUp && snakeSize >= 2)
+				    {
+				        goDown = true;
+				        goUp = false;
+				        goLeft = false;
+				        goRight = false;
+				    }
+				    else if(snakeSize == 1)
+				    {
+				        goDown = true;
+				        goUp = false;
+				        goLeft = false;
+				        goRight = false;
+				    }
+				    break;
 
-            case SDLK_LEFT:
-            if(!goRight && snakeSize >= 2)
-            {
-                goLeft = true;
-                goRight = false;
-                goUp = false;
-                goDown = false;
-            }
-            else if(snakeSize == 1)
-            {
-                goLeft = true;
-                goRight = false;
-                goUp = false;
-                goDown = false;
-            }
-            break;
+		        case SDLK_LEFT:
+				    if(!goRight && snakeSize >= 2)
+				    {
+				        goLeft = true;
+				        goRight = false;
+				        goUp = false;
+				        goDown = false;
+				    }
+				    else if(snakeSize == 1)
+				    {
+				        goLeft = true;
+				        goRight = false;
+				        goUp = false;
+				        goDown = false;
+				    }
+				    break;
 
-            case SDLK_RIGHT:
-            if(!goLeft && snakeSize >= 2)
-            {
-                goRight = true;
-                goLeft = false;
-                goUp = false;
-                goDown = false;
-            }
-            else if(snakeSize == 1)
-            {
-                goRight = true;
-                goLeft = false;
-                goUp = false;
-                goDown = false;
-            }
-            break;
-        }
-        break;
+		        case SDLK_RIGHT:
+				    if(!goLeft && snakeSize >= 2)
+				    {
+				        goRight = true;
+				        goLeft = false;
+				        goUp = false;
+				        goDown = false;
+				    }
+				    else if(snakeSize == 1)
+				    {
+				        goRight = true;
+				        goLeft = false;
+				        goUp = false;
+				        goDown = false;
+				    }
+				    break;
+		    }
+		    break;
     }
 }
 
@@ -541,3 +525,6 @@ void Snake::placeFood()
 
     map[xFoodPos][yFoodPos] = 3;
 }
+
+#endif
+
