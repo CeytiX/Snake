@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <iostream>
 
 #include "Snake.cpp"
 #include "Index.h"
@@ -37,6 +38,10 @@ Index::Index()
     SDL_EventState(SDL_MOUSEMOTION, SDL_IGNORE);
     SDL_EventState(SDL_MOUSEBUTTONUP, SDL_IGNORE);
     SDL_EventState(SDL_KEYUP, SDL_IGNORE);
+    
+    /** Snake **/
+    
+    game = new Snake();
 }
 
 /*************
@@ -74,24 +79,34 @@ void Index::printIndex()
 		{
 			case SDL_QUIT:
 				quit = true;
-				break;
+			break;
 			
 			case SDL_KEYDOWN:
 				if(event.key.keysym.sym == SDLK_ESCAPE)
 					quit = true;
-				break;
+			break;
 			
 			case SDL_MOUSEBUTTONDOWN:
 				if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 720 && event.button.y <= 800)
 				{
 					game = new Snake();
-					game->play(levelChoice());
+					
+					int level = levelChoice();
+					if(level < 10)
+					{
+						game->play(level);
+					}
+					else if(level == 10)
+					{
+						quit = true;
+					}
+					//else quit = false; (useless)
 				}
 				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 720 && event.button.y <= 800)
 				{
-					credits();
+					if(!credits()) quit = true;
 				}
-				break;
+			break;
 		}
 		
 		/** Blits **/
@@ -109,58 +124,58 @@ int Index::levelChoice()
 {
 	SDL_BlitSurface(levelChoicePicture, 0, screen, &pos);
 	SDL_Flip(screen);
-		
-	bool quit = false;
 	
-	while(!quit)
+	while(true)
 	{
 		SDL_WaitEvent(&event);
 		
 		switch(event.type)
 		{
 			case SDL_QUIT:
-				quit = true;
-				break;
+				return 10;
+			break;
 			
 			case SDL_KEYDOWN:
 				if(event.key.keysym.sym == SDLK_ESCAPE)
-					quit = true;
-				break;
+				{
+					return 10;
+				}
+			break;
 			
 			case SDL_MOUSEBUTTONDOWN:
 				if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 40 && event.button.y <= 144)
 				{
 					return 0;
 				}
-				else if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 184 && event.button.y <= 288)
+				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 40 && event.button.y <= 144)
 				{
 					return 1;
 				}
-				else if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 328 && event.button.y <= 432)
+				else if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 184 && event.button.y <= 288)
 				{
 					return 2;
 				}
-				else if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 472 && event.button.y <= 576)
+				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 184 && event.button.y <= 288)
 				{
 					return 3;
 				}
-				else if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 616 && event.button.y <= 720)
+				else if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 328 && event.button.y <= 432)
 				{
 					return 4;
 				}
-				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 40 && event.button.y <= 144)
+				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 328 && event.button.y <= 432)
 				{
 					return 5;
 				}
-				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 184 && event.button.y <= 288)
+				else if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 472 && event.button.y <= 576)
 				{
 					return 6;
 				}
-				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 328 && event.button.y <= 432)
+				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 472 && event.button.y <= 576)
 				{
 					return 7;
 				}
-				else if(event.button.x >= 405 && event.button.x <= 705 && event.button.y >= 472 && event.button.y <= 576)
+				else if(event.button.x >= 45 && event.button.x <= 345 && event.button.y >= 616 && event.button.y <= 720)
 				{
 					return 8;
 				}
@@ -168,7 +183,11 @@ int Index::levelChoice()
 				{
 					return 9;
 				}
-				break;
+				else if(event.button.x >= 7 && event.button.x <= 77 && event.button.y >= 7 && event.button.y <= 31) //return button
+				{
+					return 11;
+				}
+			break;
 		}
 		
 		/** Blits **/
@@ -179,38 +198,37 @@ int Index::levelChoice()
 }
 
 /******************
-* void credits () *
+* bool credits () *
 ******************/
 
-void Index::credits()
+bool Index::credits()
 {
 	SDL_BlitSurface(creditsPicture, 0, screen, &pos);
 	SDL_Flip(screen);
-		
-	bool quit = false;
 	
-	while(!quit)
+	while(true)
 	{
 		SDL_WaitEvent(&event);
 		
 		switch(event.type)
 		{
 			case SDL_QUIT:
-				quit = true;
-				break;
+				return false;
+			break;
 			
 			case SDL_KEYDOWN:
 				if(event.key.keysym.sym == SDLK_ESCAPE)
-					quit = true;
-				break;
+				{
+					return false;
+				}
+			break;
 			
 			case SDL_MOUSEBUTTONDOWN:
-				if(event.button.x >= 0 && event.button.x <= 0 && event.button.y >= 0 && event.button.y <= 0)
+				if(event.button.x >= 7 && event.button.x <= 77 && event.button.y >= 7 && event.button.y <= 31)
 				{
-					quit = true;
+					return true;
 				}
-			
-				break;
+			break;
 		}
 		
 		/** Blits **/

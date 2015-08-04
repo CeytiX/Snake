@@ -9,7 +9,7 @@ class Index
 		
 		void printIndex();
 		int levelChoice();
-		void credits();
+		bool credits();
 		
 	private:
 	
