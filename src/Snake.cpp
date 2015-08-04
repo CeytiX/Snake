@@ -19,7 +19,6 @@ using namespace std;
 Snake::Snake()
 {    
     screen = SDL_SetVideoMode(750, 810, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
-    //wall = SDL_CreateRGBSurface(SDL_HWSURFACE,15,15,32,0,0,0,0); //a black square (10*10)
     wall = IMG_Load("files/pictures/wall.png");
     body = IMG_Load("files/pictures/body.png");
     food = IMG_Load("files/pictures/food.gif");
